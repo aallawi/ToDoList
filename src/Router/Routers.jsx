@@ -1,15 +1,15 @@
 import { Routes, Route } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Home from "../Pages/Home";
-import SignUp from "../Pages/SignUp";
-import Login from "../Pages/Login";
+import Home from "../Pages/Home/Home";
+import SignUp from "../Pages/Auth/SignUp";
+import Login from "../Pages/Auth/Login";
 import PrivateRoute from "./PrivateRoute";
 
 const Routers = () => {
   return (
-    <div className="body">
-      <Navbar />
+    <>
+      <Header />
       <Routes>
         <Route
           index
@@ -23,7 +23,7 @@ const Routers = () => {
         <Route path="/SignUp" element={<SignUp />} />
       </Routes>
       <Footer />
-    </div>
+    </>
   );
 };
 

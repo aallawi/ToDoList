@@ -1,0 +1,47 @@
+a {
+  text-decoration: none !important;
+  color: unset !important;
+}
+
+button {
+  height: auto !important;
+  padding-block: 2px !important;
+}
+
+p {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#basic-nav-dropdown {
+  text-align: center;
+}
+@media screen and (max-width: 792px) {
+  .dropdown-item {
+    text-align: center;
+  }
+  .dropdown-menu {
+    max-width: 100px;
+  }
+}
+
+.header {
+  height: 80px !important;
+  background-color: #e7f6df !important;
+}
+.navbar-collapse.collapse.show {
+  background-color: #e7f6df !important;
+}
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 500;
+}
+.description {
+  font-size: 16px;
+}

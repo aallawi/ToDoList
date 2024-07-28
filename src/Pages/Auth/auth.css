@@ -1,0 +1,82 @@
+.background {
+  background-image: linear-gradient(135deg, #063e99 0%, #ab4290 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.min-height {
+  min-height: calc(100vh - (80px + 70px));
+}
+
+.layer {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: fit-content;
+  padding: 40px;
+  border-radius: 10px;
+  margin: auto;
+}
+
+.auth {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth .auth-content {
+  width: 400px;
+  min-width: 250px;
+}
+
+.auth-content .auth-header {
+  margin-block: 20px;
+  font-weight: 500;
+  font-size: 25px;
+  color: #357d9a;
+  text-align: center;
+}
+
+.auth-content form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  width: 100%;
+}
+.auth-content form div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.auth-content form div label {
+  padding-left: 5px;
+  color: #357d9a;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.auth-content form div input {
+  width: 100%;
+  padding: 10px 15px;
+  outline: none;
+  border-radius: 12px;
+  background-color: inherit;
+  border: 2px solid #c3c3c3;
+  font-size: 14px;
+}
+.auth-content form div input::placeholder {
+  color: #a6a6a6;
+  font-size: 12px;
+}
+
+.auth-content form button {
+  background-image: linear-gradient(135deg, #063e99 0%, #ab4290 100%);
+  outline: none;
+  border: none;
+  border-radius: 7px;
+  padding: 10px 20px;
+  color: #fff;
+  font-weight: 500;
+  margin-block: 10px;
+}
