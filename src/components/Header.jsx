@@ -7,8 +7,15 @@ import {
   Image,
 } from "react-bootstrap";
 import logo from "../assets/logo.png";
+import { useDispatch } from "react-redux";
+import { clearUserData } from "../Redux/userSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch(clearUserData());
+  };
   return (
     <Navbar className="header p-0 m-auto" expand="lg">
       <Container>
@@ -30,7 +37,9 @@ const Header = () => {
           <Nav className="ms-auto align-items-center">
             <NavDropdown title="Allawi" id="basic-nav-dropdown">
               <NavDropdown.Item href="/setting">Setting</NavDropdown.Item>
-              <NavDropdown.Item href="/login">Log out</NavDropdown.Item>
+              <NavDropdown.Item href="/login" onClick={() => logout()}>
+                Log out
+              </NavDropdown.Item>
             </NavDropdown>
             <Button
               href="/login"

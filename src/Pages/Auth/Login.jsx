@@ -32,22 +32,6 @@ const Login = () => {
               >
                 <Form>
                   <div className="form-group">
-                    <label htmlFor="name">Full Name:</label>
-                    <Field
-                      type="text"
-                      name="name"
-                      id="name"
-                      placeholder="Your Full Name"
-                      className="form-control"
-                    />
-                    <ErrorMessage
-                      name="name"
-                      component="span"
-                      className="error-message"
-                    />
-                  </div>
-
-                  <div className="form-group">
                     <label htmlFor="userName">Username:</label>
                     <Field
                       type="text"
