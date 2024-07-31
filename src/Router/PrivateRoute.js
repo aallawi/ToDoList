@@ -1,18 +1,19 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const PrivateRoute = ({ children }) => {
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  // const navigate = useNavigate();
+  const { userData } = useSelector((state) => state.user);
+  console.log("userData", userData);
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/SignUp", { replace: true });
-    }
-  }, [user, navigate]);
+  // useEffect(() => {
+  //   if (!userData) {
+  //     navigate("/SignUp", { replace: true });
+  //   }
+  // }, [userData, navigate]);
 
-  return user ? children : null;
+  return userData ? children : null;
 };
 
 export default PrivateRoute;

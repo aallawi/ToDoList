@@ -22,8 +22,8 @@ const SignUp = () => {
 
   useEffect(() => {
     if (success) {
-      dispatch(cleanUserState());
-      navigate("/");
+      // dispatch(cleanUserState());
+      navigate("/", { replace: true });
     }
   }, [success, dispatch, navigate]);
 
@@ -41,6 +41,7 @@ const SignUp = () => {
               {error && <div>{errMessage}</div>}
               <Formik
                 initialValues={{
+                  name: "",
                   userName: "",
                   password: "",
                 }}
@@ -98,6 +99,7 @@ const SignUp = () => {
 
                   <button type="submit" className="btn btn-primary btn-submit">
                     Sign Up
+                    {loading && <p>Loading...</p>}
                   </button>
                 </Form>
               </Formik>

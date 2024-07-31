@@ -14,9 +14,9 @@ const Routers = () => {
         <Route
           index
           element={
-            <PrivateRoute>
-              <Home />
-            </PrivateRoute>
+            // <PrivateRoute>
+            <Home />
+            // </PrivateRoute>
           }
         />
         <Route path="/Login" element={<Login />} />

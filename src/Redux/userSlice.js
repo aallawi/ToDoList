@@ -7,11 +7,12 @@ const axiosInstance = axios.create({ baseURL: BASE_URL });
 export const registerFun = createAsyncThunk(
   "user/register",
   async (objectData, { rejectWithValue }) => {
+    const { userName } = objectData;
     try {
-      const { userName } = objectData;
       const { data } = await axiosInstance.get("/user");
+      const userExists = data.find((user) => user.userName === userName);
 
-      if (data.some((user) => user.userName === userName)) {
+      if (userExists) {
         return rejectWithValue("This User Is Already Registered");
       }
 
@@ -23,8 +24,29 @@ export const registerFun = createAsyncThunk(
   }
 );
 
+export const loginFun = createAsyncThunk(
+  "user/login",
+  async (objectData, { rejectWithValue }) => {
+    const { userName, password } = objectData;
+    try {
+      const response = await axiosInstance.get("/user");
+      const users = response.data;
+      const user = users.find(
+        (user) => user.userName === userName && user.password === password
+      );
+      if (user) {
+        return { ...user };
+      } else {
+        return rejectWithValue("User not found or Password doesn't match");
+      }
+    } catch (error) {
+      return rejectWithValue("User not found");
+    }
+  }
+);
+
 const initialState = {
-  userData: {},
+  userData: null,
 
   thrRegister: {
     loading: false,
@@ -33,7 +55,7 @@ const initialState = {
     errMessage: "",
   },
 
-  loggedIN: {
+  theLogin: {
     loading: false,
     success: false,
     error: false,
@@ -56,6 +78,7 @@ const userSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+      // Register actions
       .addCase(registerFun.pending, (state) => {
         state.thrRegister.loading = true;
       })
@@ -68,6 +91,21 @@ const userSlice = createSlice({
         state.thrRegister.loading = false;
         state.thrRegister.error = true;
         state.thrRegister.errMessage = action.payload;
+      })
+
+      // Login actions
+      .addCase(loginFun.pending, (state) => {
+        state.theLogin.loading = true;
+      })
+      .addCase(loginFun.fulfilled, (state, action) => {
+        state.theLogin.loading = false;
+        state.theLogin.success = true;
+        state.userData = { ...action.payload };
+      })
+      .addCase(loginFun.rejected, (state, action) => {
+        state.theLogin.loading = false;
+        state.theLogin.error = true;
+        state.theLogin.errMessage = action.payload;
       });
   },
 });

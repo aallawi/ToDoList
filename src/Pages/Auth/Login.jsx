@@ -1,18 +1,34 @@
+import { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Container from "react-bootstrap/Container";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import "./auth.css";
+import { loginFun, cleanUserState } from "../../Redux/userSlice";
 
 const Login = () => {
-  const onSubmit = (values) => {
-    console.log(values);
-  };
+  const { theLogin } = useSelector((state) => state.user);
+  const { loading, success, error, errMessage } = theLogin;
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const schema = Yup.object().shape({
-    name: Yup.string().min(4, "Too Short!").required("required"),
-    userName: Yup.string().min(4, "Too Short!").required("required"),
-    password: Yup.string().min(6, "Too Short!").required("required"),
+    userName: Yup.string().min(4, "Too Short!").required("Required"),
+    password: Yup.string().min(6, "Too Short!").required("Required"),
   });
+
+  useEffect(() => {
+    if (success) {
+      // dispatch(cleanUserState());
+      navigate("/", { replace: true });
+    }
+  }, [success, dispatch, navigate]);
+
+  const onSubmit = async (values) => {
+    await dispatch(loginFun(values));
+  };
 
   return (
     <div className="background min-height">
@@ -21,9 +37,9 @@ const Login = () => {
           <div className="auth">
             <div className="auth-content">
               <h3 className="auth-header">Login to your account</h3>
+              {error && <div>{errMessage}</div>}
               <Formik
                 initialValues={{
-                  name: "",
                   userName: "",
                   password: "",
                 }}
@@ -65,6 +81,7 @@ const Login = () => {
 
                   <button type="submit" className="btn btn-primary btn-submit">
                     Login
+                    {loading && <p>Loading...</p>}
                   </button>
                 </Form>
               </Formik>
