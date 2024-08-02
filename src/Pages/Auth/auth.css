@@ -1,101 +1,256 @@
-.background {
-  background-image: linear-gradient(135deg, #063e99 0%, #ab4290 100%);
+.auth {
+  color: white;
+  background-color: #1f2029;
+  overflow: hidden;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #12141d 100%);
+}
+
+.full-height {
+  min-height: 99vh;
+}
+
+.switch_title {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 40px;
+  margin-bottom: 20px;
 }
 
-.min-height {
-  min-height: calc(100vh - (80px + 40px));
+.switch_title span {
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
-.layer {
-  background-color: rgba(255, 255, 255, 0.15);
-  width: fit-content;
-  padding: 40px;
-  border-radius: 10px;
-  margin-block: 20px;
+.active {
+  color: #ef233c;
+}
+
+[type="checkbox"]:checked,
+[type="checkbox"]:not(:checked) {
+  display: none;
+}
+
+.checkbox:checked + label,
+.checkbox:not(:checked) + label {
+  position: relative;
+  display: block;
+  text-align: center;
+  width: 60px;
+  height: 16px;
+  border-radius: 8px;
+  padding: 0;
+  margin: 10px auto;
+  cursor: pointer;
+  background-color: white;
+}
+
+.checkbox:checked + label:before,
+.checkbox:not(:checked) + label:before {
+  position: absolute;
+  display: block;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: white;
+  background-color: #ef233c;
+  font-family: "unicons";
+  content: "\eb4f";
+  z-index: 20;
+  top: -10px;
+  left: -10px;
+  line-height: 36px;
+  text-align: center;
+  font-size: 24px;
+  transition: all 0.5s ease;
+}
+
+.checkbox:checked + label:before {
+  transform: translateX(44px) rotate(-270deg);
+}
+
+.card-3d-wrap {
+  position: relative;
+  width: 440px;
+  max-width: 100%;
+  height: 500px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  perspective: 800px;
+  margin-top: 30px;
   margin-inline: auto;
 }
 
-.auth {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
+.card-3d-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  transition: all 0.7s ease-out;
+}
+
+.card-front,
+.card-back {
+  width: 100%;
+  height: 100%;
+  background-color: #2d344b;
+  position: absolute;
+  border-radius: 6px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.checkbox:checked ~ .card-3d-wrap .card-3d-wrapper {
+  transform: rotateY(180deg);
+}
+
+.center-wrap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 35px;
+  top: 50%;
+  left: 0;
+  transform: translate3d(0, -50%, 35px) perspective(100px);
+  z-index: 20;
+  display: block;
+}
+
+.box {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.6);
+}
+
+.section {
   position: relative;
-  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.auth .auth-content {
-  width: 400px;
-  min-width: 250px;
-}
-
-.auth-content .auth-header {
-  margin-top: 20px;
-  margin-bottom: 25px;
-  font-weight: 500;
-  font-size: 25px;
+.title {
   text-align: center;
+  font-size: 30px;
+  margin-bottom: 10px;
 }
 
-.auth-content form {
+.error {
+  min-height: 40px;
+  color: #ef233c;
+  font-size: 18px;
+}
+
+.form-group {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+  height: 75px;
+}
+
+.form-group .form-icon {
   display: flex;
-  flex-direction: column;
-  row-gap: 20px;
-  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-left: 10px;
 }
-
-.auth-content form div {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.auth-content form div label,
-.auth-content form .error-message {
-  padding-left: 5px;
-  font-weight: 500;
-  font-size: 16px;
-}
-.auth-content form div label {
-  color: #357d9a;
-}
-.auth-content form .error-message {
-  color: #f3705a;
-}
-
-.auth-content form div input {
-  width: 100%;
-  padding: 8px 12px;
-  outline: none;
-  border-radius: 12px;
-  background-color: inherit;
-  border: 2px solid #c3c3c3;
-  font-size: 14px;
-}
-.auth-content form div input::placeholder {
-  color: #a6a6a6;
-  font-size: 12px;
-}
-
-.auth-content form button {
-  background-image: linear-gradient(135deg, #063e99 0%, #ab4290 100%);
+.form-group input {
+  background-color: transparent;
   outline: none;
   border: none;
-  border-radius: 20px;
-  padding: 10px 20px;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 500;
-  margin-block: 10px;
+  flex: 1;
+  font-size: 16px;
+  border-radius: 0 20px 20px 0;
+  padding-left: 5px;
+  color: rgb(205, 205, 205);
+}
+.form-group input::placeholder {
+  color: rgb(205, 205, 205);
+}
+.form-group input:focus,
+.form-group input:active {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: rgb(205, 205, 205);
 }
 
-@media screen and (max-width: 500px) {
-  .layer {
-    padding: 20px;
-    margin-block: 20px;
+.form-input {
+  display: flex;
+  border: 1px solid #ef233c;
+  border-radius: 20px;
+  color: #ef233c;
+  display: flex;
+  gap: 5px;
+}
+.form-input input,
+.form-input input:focus,
+.form-input input:active {
+  box-shadow: none;
+}
+.form-input input:focus {
+  color: aqua;
+}
+
+.form-input:has(input:focus) {
+  border: 1px solid aqua;
+}
+.form-input:focus-within .form-icon .icon {
+  color: aqua;
+}
+
+.error-message {
+  text-align: left;
+  color: #ef233c;
+  font-size: 14px;
+  padding-left: 10px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  border-radius: 20px;
+  background-color: #ef233c;
+  font-size: 16px;
+  font-weight: 700;
+  min-height: 30px !important;
+  outline: none;
+  border: none;
+}
+button[type="submit"]:hover {
+  background-color: #8d0801;
+  color: white;
+}
+
+.prompt {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 15px;
+}
+.prompt span {
+  cursor: pointer;
+  padding-left: 7px;
+  color: #ef233c;
+}
+.prompt span:hover {
+  color: #c40a00;
+}
+
+.spins {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
   }
-  .auth .auth-content {
-    width: 100%;
+  to {
+    transform: rotate(360deg);
   }
 }

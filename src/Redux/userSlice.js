@@ -27,12 +27,13 @@ export const registerFun = createAsyncThunk(
 export const loginFun = createAsyncThunk(
   "user/login",
   async (objectData, { rejectWithValue }) => {
-    const { userName, password } = objectData;
+    const { userNameLogin, passwordLogin } = objectData;
     try {
       const response = await axiosInstance.get("/user");
       const users = response.data;
       const user = users.find(
-        (user) => user.userName === userName && user.password === password
+        (user) =>
+          user.userName === userNameLogin && user.password === passwordLogin
       );
       if (user) {
         return { ...user };
