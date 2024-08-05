@@ -2,8 +2,7 @@ const Home = () => {
   return (
     <div
       style={{
-        height: "800px",
-        background: "green",
+        height: "80vh",
       }}
     >
       Home

@@ -1,9 +1,4 @@
 .auth {
-  color: white;
-  background-color: #1f2029;
-  overflow: hidden;
-  min-height: 100vh;
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #12141d 100%);
 }
 
 .full-height {
@@ -135,7 +130,7 @@
   justify-content: center;
 }
 
-.title {
+.section .title {
   text-align: center;
   font-size: 30px;
   margin-bottom: 10px;
@@ -213,19 +208,19 @@
   padding-left: 10px;
 }
 
-button[type="submit"] {
+button.btn {
   width: 100%;
   border-radius: 20px;
   background-color: #ef233c;
+  color: white;
   font-size: 16px;
   font-weight: 700;
   min-height: 30px !important;
   outline: none;
   border: none;
 }
-button[type="submit"]:hover {
+button.btn:hover {
   background-color: #8d0801;
-  color: white;
 }
 
 .prompt {

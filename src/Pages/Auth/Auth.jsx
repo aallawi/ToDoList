@@ -34,20 +34,6 @@ const Auth = () => {
     registerErrMessage = thrRegister.errMessage,
   } = thrRegister;
 
-  // console.log("theLogin", theLogin);
-  // console.log("thrRegister", thrRegister);
-
-  // console.log("loginLoading", loginLoading);
-  // console.log("loginSuccess", loginSuccess);
-  // console.log("loginError", loginError);
-  // console.log("loginErrMessage", loginErrMessage);
-  // console.log("--------------------");
-  console.log("registerLoading ==>", registerLoading);
-  console.log("registerSuccess ==>", registerSuccess);
-  console.log("registerError   ==>", registerError);
-  console.log("registerErrMessage>", registerErrMessage);
-  console.log("--------------------");
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -80,10 +66,6 @@ const Auth = () => {
 
   return (
     <div className="auth">
-      <div id="stars"></div>
-      <div id="stars2"></div>
-      <div id="stars3"></div>
-
       <div className="relative">
         <div className="container">
           <div className="row full-height justify-content-center">
@@ -172,10 +154,7 @@ const Auth = () => {
                                 />
                               </div>
 
-                              <button
-                                type="submit"
-                                className="btn btn-primary btn-submit"
-                              >
+                              <button className="btn">
                                 {loginLoading ? (
                                   <AiOutlineLoading3Quarters
                                     size={20}
@@ -198,6 +177,8 @@ const Auth = () => {
                         </div>
                       </div>
                     </div>
+
+                    {/* Sign Up */}
                     <div className="card-back box">
                       <div className="center-wrap">
                         <div className="section">
@@ -273,10 +254,7 @@ const Auth = () => {
                                 />
                               </div>
 
-                              <button
-                                type="submit"
-                                className="btn btn-primary btn-submit"
-                              >
+                              <button className="btn">
                                 {registerLoading ? (
                                   <AiOutlineLoading3Quarters
                                     size={20}

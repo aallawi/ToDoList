@@ -6,7 +6,14 @@ function App() {
   // const { userData } = useSelector((state) => state.user);
   // console.log("userData", userData);
 
-  return <Routers />;
+  return (
+    <div className="app">
+      <div id="stars"></div>
+      <div id="stars2"></div>
+      <div id="stars3"></div>
+      <Routers />
+    </div>
+  );
 }
 
 export default App;
