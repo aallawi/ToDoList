@@ -5,7 +5,6 @@
 }
 
 a {
-  color: unset !important;
   text-decoration: none !important;
 }
 
@@ -597,7 +596,7 @@ a {
   top: -6px;
   left: 0;
   width: 100%;
-  height: auto;
+  height: 65px;
   background: #2d344b;
 }
 
@@ -605,7 +604,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 10px;
+  padding-block: 8px;
 }
 
 .header .header_content .logo {
@@ -631,13 +630,14 @@ a {
   margin-bottom: 0;
 }
 
-.logout {
-  width: 140px;
+.buttons {
   display: flex;
   justify-content: flex-end;
+  gap: 5px;
+  width: 190px;
 }
 
-.logout .btn_logout {
+.btn_effect {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -652,8 +652,14 @@ a {
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
   background-color: rgb(255, 65, 65);
 }
+.btn_effect.logout {
+  background-color: rgb(255, 65, 65);
+}
+.btn_effect.add {
+  background-color: #16c60c;
+}
 
-.logout .btn_logout .sign {
+.btn_effect .sign {
   width: 100%;
   transition-duration: 0.3s;
   display: flex;
@@ -661,15 +667,15 @@ a {
   justify-content: center;
 }
 
-.logout .btn_logout .sign svg {
+.btn_effect .sign svg {
   width: 17px;
 }
 
-.logout .btn_logout .sign svg path {
+.btn_effect .sign svg path {
   fill: white;
 }
 
-.logout .btn_logout .text {
+.btn_effect .text {
   position: absolute;
   right: 0%;
   width: 0%;
@@ -678,29 +684,29 @@ a {
   font-size: 18px;
   font-weight: 600;
   transition-duration: 0.3s;
-  padding-left: 10px;
 }
 
-.logout .btn_logout:hover {
+.btn_effect:hover {
   width: 140px;
   border-radius: 40px;
   transition-duration: 0.3s;
 }
 
-.logout .btn_logout:hover .sign {
+.btn_effect:hover .sign {
   width: 30%;
   transition-duration: 0.3s;
-  padding-left: 20px;
+  /* padding-left: 20px; */
 }
 
-.logout .btn_logout:hover .text {
+.btn_effect:hover .text {
+  min-width: fit-content;
   opacity: 1;
   width: 70%;
   transition-duration: 0.3s;
-  padding-right: 10px;
+  text-align: left;
 }
 
-.logout .btn_logout:active {
+.btn_effect:active {
   transform: translate(2px, 2px);
 }
 
@@ -712,4 +718,34 @@ a {
   font-size: 16px;
   font-weight: 600;
   padding-block: 10px;
+}
+.footer span {
+  color: #cccc;
+}
+.footer a {
+  color: white !important;
+  padding-right: 5px;
+}
+
+/* ------------------------------------------------------------------- */
+
+.home {
+  min-height: calc(99vh - (65px + 44px));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home_content {
+  background-color: #2d344b;
+  width: 100%;
+  flex: 1;
+}
+
+.task_card {
+  background-color: #2d344b;
+  padding: 10px;
+  border-radius: 12px;
+  margin-bottom: 20px;
 }
