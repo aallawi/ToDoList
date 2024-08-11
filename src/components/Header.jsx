@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Container, Image } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { clearUserData } from "../Redux/userSlice";
+import { clearUserData } from "../Redux/userSlice";
+import { clearTaskData } from "../Redux/taskSlice";
 import { IoMdAdd } from "react-icons/io";
 import { RxExit } from "react-icons/rx";
-
 import logo from "../assets/logo.png";
 import Modals from "./Modals";
 
@@ -13,13 +12,11 @@ const Header = () => {
   const [show, setShow] = useState(false);
 
   const { userData } = useSelector((state) => state.user);
-  // const dispatch = useDispatch();
-
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const logout = () => {
-    // dispatch(clearUserData());
-    navigate("/auth", { replace: true });
+    dispatch(clearUserData());
+    dispatch(clearTaskData());
     console.log("logout");
   };
 
