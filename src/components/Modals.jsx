@@ -1,28 +1,44 @@
 import { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useNavigate } from "react-router-dom";
 import { CiCalendarDate } from "react-icons/ci";
 import { TfiLayoutListThumbAlt } from "react-icons/tfi";
 import { MdOutlineDescription, MdOutlineFolderSpecial } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { createTask, updateTask } from "../Redux/taskSlice";
+import { clearTaskState, createTask, updateTask } from "../Redux/taskSlice";
 import Modal from "react-bootstrap/Modal";
 import * as Yup from "yup";
-
-const taskSchema = Yup.object().shape({
-  name: Yup.string().min(4, "Too Short!").required("Required"),
-  description: Yup.string().min(10, "Too Short!").required("Required"),
-  type: Yup.string().required("Please select a category"),
-  date: Yup.date(),
-});
 
 const Modals = ({ show, setShow, task }) => {
   const [mode, setMode] = useState("Create");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { userData } = useSelector((state) => state.user);
+  const { theCreate, theUpdate } = useSelector((state) => state.task);
+  const {
+    createLoading = theCreate.loading,
+    createSuccess = theCreate.success,
+    createError = theCreate.error,
+    createErrMessage = theCreate.errMessage,
+  } = theCreate;
+
+  const {
+    updateLoading = theUpdate.loading,
+    updateSuccess = theUpdate.success,
+    updateError = theUpdate.error,
+    updateErrMessage = theUpdate.errMessage,
+  } = theUpdate;
 
   useEffect(() => {
     setMode(task ? "Update" : "Create");
   }, [task]);
+
+  const taskSchema = Yup.object().shape({
+    name: Yup.string().min(4, "Too Short!").required("Required"),
+    description: Yup.string().min(10, "Too Short!").required("Required"),
+    type: Yup.string().required("Please select a category"),
+    date: Yup.date(),
+  });
 
   const onSubmit = async (values) => {
     const taskData = { ...values, complete: false, archive: false };
@@ -37,6 +53,13 @@ const Modals = ({ show, setShow, task }) => {
 
     setShow(false);
   };
+
+  useEffect(() => {
+    if (createSuccess || updateSuccess) {
+      dispatch(clearTaskState());
+      navigate("/");
+    }
+  }, [createSuccess, updateSuccess]);
 
   return (
     <Modal
