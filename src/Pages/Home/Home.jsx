@@ -6,11 +6,13 @@ import TaskCard from "../../components/TaskCard";
 
 const Home = () => {
   const { tasks } = useSelector((state) => state.task);
-  const dispatch = useDispatch();
+  const { userData } = useSelector((state) => state.user);
+
   const [filter, setFilter] = useState("all");
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchTasks());
+    dispatch(fetchTasks(userData?.id));
   }, [dispatch]);
 
   const taskCounts = {

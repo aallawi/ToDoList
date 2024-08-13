@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
-import Modals from "./Modals";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearTaskState, deleteTask, updateTask } from "../Redux/taskSlice";
+import { resetTaskState, deleteTask, updateTask } from "../Redux/taskSlice";
 import { MdDeleteOutline } from "react-icons/md";
 import { GoArchive } from "react-icons/go";
 import { CiEdit } from "react-icons/ci";
 import { FcOk } from "react-icons/fc";
 import { RiTimer2Line } from "react-icons/ri";
+import Modals from "./Modals";
 
 const TaskCard = ({ task }) => {
   const [show, setShow] = useState(false);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { userData } = useSelector((state) => state.user);
   const { theDelete, theUpdate } = useSelector((state) => state.task);
   const {
@@ -29,8 +33,8 @@ const TaskCard = ({ task }) => {
 
   useEffect(() => {
     if (deleteSuccess || updateSuccess) {
-      dispatch(clearTaskState());
-      history.push("/");
+      dispatch(resetTaskState());
+      navigate("/");
     }
   }, [deleteSuccess, updateSuccess]);
 
@@ -48,7 +52,6 @@ const TaskCard = ({ task }) => {
   const handleDeleteTask = async () => {
     if (userId && taskId) {
       await dispatch(deleteTask({ userId, taskId }));
-      await dispatch(clearTaskState());
     }
   };
 

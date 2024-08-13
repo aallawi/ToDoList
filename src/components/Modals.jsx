@@ -5,14 +5,20 @@ import { CiCalendarDate } from "react-icons/ci";
 import { TfiLayoutListThumbAlt } from "react-icons/tfi";
 import { MdOutlineDescription, MdOutlineFolderSpecial } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { clearTaskState, createTask, updateTask } from "../Redux/taskSlice";
+import { resetTaskState, createTask, updateTask } from "../Redux/taskSlice";
 import Modal from "react-bootstrap/Modal";
 import * as Yup from "yup";
 
 const Modals = ({ show, setShow, task }) => {
   const [mode, setMode] = useState("Create");
+
+  useEffect(() => {
+    setMode(task ? "Update" : "Create");
+  }, [task]);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const { userData } = useSelector((state) => state.user);
   const { theCreate, theUpdate } = useSelector((state) => state.task);
   const {
@@ -28,10 +34,6 @@ const Modals = ({ show, setShow, task }) => {
     updateError = theUpdate.error,
     updateErrMessage = theUpdate.errMessage,
   } = theUpdate;
-
-  useEffect(() => {
-    setMode(task ? "Update" : "Create");
-  }, [task]);
 
   const taskSchema = Yup.object().shape({
     name: Yup.string().min(4, "Too Short!").required("Required"),
@@ -56,7 +58,7 @@ const Modals = ({ show, setShow, task }) => {
 
   useEffect(() => {
     if (createSuccess || updateSuccess) {
-      dispatch(clearTaskState());
+      dispatch(resetTaskState());
       navigate("/");
     }
   }, [createSuccess, updateSuccess]);

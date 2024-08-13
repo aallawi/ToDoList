@@ -1,11 +1,7 @@
-import { useSelector } from "react-redux";
-import "./index.css";
 import Routers from "./Router/Routers";
+import "./index.css";
 
 function App() {
-  // const { userData } = useSelector((state) => state.user);
-  // console.log("userData", userData);
-
   return (
     <div className="app">
       <div id="stars"></div>

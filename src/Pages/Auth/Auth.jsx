@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
-import { cleanUserState, loginFun, registerFun } from "../../Redux/userSlice";
+import { resetUserState, loginFun, registerFun } from "../../Redux/userSlice";
+import { resetTaskState } from "../../Redux/taskSlice";
 import { CiUser, CiAt } from "react-icons/ci";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -51,8 +51,8 @@ const Auth = () => {
 
   useEffect(() => {
     if (registerSuccess || loginSuccess) {
-      dispatch(cleanUserState());
-      navigate("/");
+      dispatch(resetUserState());
+      dispatch(resetTaskState());
     }
   }, [registerSuccess, loginSuccess, navigate]);
 
@@ -61,7 +61,6 @@ const Auth = () => {
   };
 
   const onSubmitRegister = async (values) => {
-    console.log("Register", values);
     await dispatch(registerFun(values));
   };
 

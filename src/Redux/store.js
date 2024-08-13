@@ -1,45 +1,27 @@
-// import { combineReducers, configureStore } from "@reduxjs/toolkit";
-// import { persistReducer } from "reduxjs-toolkit-persist";
-// import storage from "reduxjs-toolkit-persist/lib/storage";
-// import hardSet from "reduxjs-toolkit-persist/lib/stateReconciler/hardSet";
-// import thunk from "redux-thunk";
-
-// import storage from "redux-persist/lib/storage";
-// import hardSet from "redux-persist/lib/stateReconciler/hardSet";
-
-// import userSlice from "./userSlice";
-
-// const persistConfig = {
-//   key: "root",
-//   storage: storage,
-//   stateReconciler: hardSet,
-// };
-
-// const reducers = combineReducers({
-//   task: taskSlice,
-//   user: userSlice,
-// });
-
-// const _persistedReducer = persistReducer(persistConfig, reducers);
-
-// const store = configureStore({
-//   reducer: _persistedReducer,
-//   middleware: [thunk],
-// });
-
-// export default store;
-
-// ========================================================
-
 import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import userSlice from "./userSlice";
 import taskSlice from "./taskSlice";
 
-const store = configureStore({
-  reducer: {
+const persistConfig = {
+  key: "root",
+  storage, // استخدام localStorage
+};
+
+// Redux-persist
+const persistedReducer = persistReducer(
+  persistConfig,
+  combineReducers({
     user: userSlice,
     task: taskSlice,
-  },
+  })
+);
+
+const store = configureStore({
+  reducer: persistedReducer,
 });
 
+export const persistor = persistStore(store);
 export default store;

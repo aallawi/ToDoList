@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Container, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { clearUserData } from "../Redux/userSlice";
-import { clearTaskData } from "../Redux/taskSlice";
+import { logoutUser } from "../Redux/userSlice";
+import { removeAllTasks } from "../Redux/taskSlice";
 import { IoMdAdd } from "react-icons/io";
 import { RxExit } from "react-icons/rx";
 import logo from "../assets/logo.png";
@@ -15,9 +15,8 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const logout = () => {
-    dispatch(clearUserData());
-    dispatch(clearTaskData());
-    console.log("logout");
+    dispatch(logoutUser());
+    dispatch(removeAllTasks());
   };
 
   return (
@@ -47,6 +46,7 @@ const Header = () => {
               </div>
               <div className="text">Add Task</div>
             </button>
+
             <button className="btn_effect logout" onClick={() => logout()}>
               <div className="sign">
                 <RxExit />

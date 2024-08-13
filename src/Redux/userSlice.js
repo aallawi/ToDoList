@@ -69,10 +69,10 @@ const userSlice = createSlice({
   initialState,
 
   reducers: {
-    clearUserData: (state) => {
+    logoutUser: (state) => {
       state.userData = null;
     },
-    cleanUserState: (state) => {
+    resetUserState: (state) => {
       Object.assign(state, initialState);
     },
   },
@@ -111,5 +111,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { clearUserData, cleanUserState } = userSlice.actions;
+export const { logoutUser, resetUserState } = userSlice.actions;
 export default userSlice.reducer;

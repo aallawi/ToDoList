@@ -4,8 +4,8 @@ import axios from "axios";
 const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 const axiosInstance = axios.create({ baseURL: BASE_URL });
 
-const fetchTasksData = async () => {
-  const response = await axiosInstance.get(`/tasks`);
+const fetchTasksData = async (userId) => {
+  const response = await axiosInstance.get(`/user/${userId}/tasks`);
   return response.data;
 };
 
@@ -15,7 +15,7 @@ export const createTask = createAsyncThunk(
   async ({ userId, taskData }, { rejectWithValue }) => {
     try {
       await axiosInstance.post(`user/${userId}/tasks`, taskData);
-      const data = await fetchTasksData();
+      const data = await fetchTasksData(userId);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "An error occurred");
@@ -26,9 +26,9 @@ export const createTask = createAsyncThunk(
 // Fetch Tasks
 export const fetchTasks = createAsyncThunk(
   "task/fetch",
-  async (_, { rejectWithValue }) => {
+  async (userId, { rejectWithValue }) => {
     try {
-      const data = await fetchTasksData();
+      const data = await fetchTasksData(userId);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "An error occurred");
@@ -42,7 +42,7 @@ export const deleteTask = createAsyncThunk(
   async ({ userId, taskId }, { rejectWithValue }) => {
     try {
       await axiosInstance.delete(`/user/${userId}/tasks/${taskId}`);
-      const data = await fetchTasksData();
+      const data = await fetchTasksData(userId);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "An error occurred");
@@ -56,7 +56,7 @@ export const updateTask = createAsyncThunk(
   async ({ userId, taskId, taskData }, { rejectWithValue }) => {
     try {
       await axiosInstance.put(`/user/${userId}/tasks/${taskId}`, taskData);
-      const data = await fetchTasksData();
+      const data = await fetchTasksData(userId);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "An error occurred");
@@ -97,10 +97,10 @@ const taskSlice = createSlice({
   initialState,
 
   reducers: {
-    clearTaskData: (state) => {
+    removeAllTasks: (state) => {
       state.tasks = [];
     },
-    clearTaskState: (state) => {
+    resetTaskState: (state) => {
       Object.assign(state, initialState);
     },
   },
@@ -132,35 +132,35 @@ const taskSlice = createSlice({
       .addCase(deleteTask.pending, (state) => {
         state.theDelete.loading = true;
       })
+      .addCase(deleteTask.rejected, (state) => {
+        state.theDelete.loading = false;
+        state.theDelete.error = true;
+        state.theDelete.errorMsg = "Error!! Failed To Delete Task.";
+      })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.theDelete.loading = false;
         state.theDelete.success = true;
         state.theDelete.successMsg = "Task Has Been Deleted Successfully";
         state.tasks = [...action.payload];
       })
-      .addCase(deleteTask.rejected, (state) => {
-        state.theDelete.loading = false;
-        state.theDelete.error = true;
-        state.theDelete.errorMsg = "Error!! Failed To Delete Task.";
-      })
 
       // Update actions
       .addCase(updateTask.pending, (state) => {
         state.theUpdate.loading = true;
+      })
+      .addCase(updateTask.rejected, (state) => {
+        state.theUpdate.loading = false;
+        state.theUpdate.error = true;
+        state.theUpdate.errorMsg = "Error!! Failed To Update Task";
       })
       .addCase(updateTask.fulfilled, (state, action) => {
         state.theUpdate.loading = false;
         state.theUpdate.success = true;
         state.theUpdate.successMsg = "Task Has Been Updated";
         state.tasks = [...action.payload];
-      })
-      .addCase(updateTask.rejected, (state) => {
-        state.theUpdate.loading = false;
-        state.theUpdate.error = true;
-        state.theUpdate.errorMsg = "Error!! Failed To Update Task";
       });
   },
 });
 
-export const { clearTaskData, clearTaskState } = taskSlice.actions;
+export const { removeAllTasks, resetTaskState } = taskSlice.actions;
 export default taskSlice.reducer;
