@@ -7,6 +7,7 @@ import { GoArchive } from "react-icons/go";
 import { CiEdit } from "react-icons/ci";
 import { FcOk } from "react-icons/fc";
 import { RiTimer2Line } from "react-icons/ri";
+import Swal from "sweetalert2";
 import Modals from "./Modals";
 
 const TaskCard = ({ task }) => {
@@ -49,9 +50,26 @@ const TaskCard = ({ task }) => {
     archive,
   } = task;
 
-  const handleDeleteTask = async () => {
+  const handleDeleteTask = async (name) => {
     if (userId && taskId) {
-      await dispatch(deleteTask({ userId, taskId }));
+      Swal.fire({
+        title: "Are you sure?",
+        text: `Do you want to delete the "${name}" task?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await dispatch(deleteTask({ userId, taskId }));
+          Swal.fire(
+            "Deleted!",
+            `The "${name}" task has been deleted.`,
+            "success"
+          );
+        }
+      });
     }
   };
 
@@ -140,7 +158,10 @@ const TaskCard = ({ task }) => {
           </span>
         </button>
 
-        <button className="button_action delete" onClick={handleDeleteTask}>
+        <button
+          className="button_action delete"
+          onClick={() => handleDeleteTask(name)}
+        >
           <span className="text">Delete</span>
           <span className="icon">
             <MdDeleteOutline size={25} />

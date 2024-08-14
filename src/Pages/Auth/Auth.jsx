@@ -116,8 +116,8 @@ const Auth = () => {
                           </div>
                           <Formik
                             initialValues={{
-                              userNameLogin: "",
-                              passwordLogin: "",
+                              userNameLogin: "allawi",
+                              passwordLogin: "123456789",
                             }}
                             onSubmit={onSubmitLogin}
                             validationSchema={schemaLogin}

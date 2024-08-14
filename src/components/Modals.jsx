@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { CiCalendarDate } from "react-icons/ci";
 import { TfiLayoutListThumbAlt } from "react-icons/tfi";
 import { MdOutlineDescription, MdOutlineFolderSpecial } from "react-icons/md";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { resetTaskState, createTask, updateTask } from "../Redux/taskSlice";
 import Modal from "react-bootstrap/Modal";
@@ -162,7 +163,15 @@ const Modals = ({ show, setShow, task }) => {
             </div>
 
             <button className="btn" type="submit">
-              {mode} Task
+              {createLoading || updateLoading ? (
+                <AiOutlineLoading3Quarters
+                  size={20}
+                  className="spins"
+                  color="white"
+                />
+              ) : (
+                `${mode} Task`
+              )}
             </button>
           </Form>
         </Formik>
