@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUserState, loginFun, registerFun } from "../../Redux/userSlice";
@@ -7,19 +7,15 @@ import { resetTaskState } from "../../Redux/taskSlice";
 import { CiUser, CiAt } from "react-icons/ci";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import FormInput from "../../components/FormInput";
 import * as Yup from "yup";
 import "./auth.css";
 
 const Auth = () => {
   const [isChecked, setIsChecked] = useState(false);
 
-  const handleSignup = () => {
-    setIsChecked(true);
-  };
-
-  const handleLogin = () => {
-    setIsChecked(false);
-  };
+  const handleSignup = () => setIsChecked(true);
+  const handleLogin = () => setIsChecked(false);
 
   const { theLogin, thrRegister } = useSelector((state) => state.user);
   const {
@@ -28,6 +24,7 @@ const Auth = () => {
     loginError = theLogin.error,
     loginErrMessage = theLogin.errMessage,
   } = theLogin;
+
   const {
     registerLoading = thrRegister.loading,
     registerSuccess = thrRegister.success,
@@ -53,15 +50,27 @@ const Auth = () => {
     if (registerSuccess || loginSuccess) {
       dispatch(resetUserState());
       dispatch(resetTaskState());
+      navigate("/");
     }
-  }, [registerSuccess, loginSuccess, navigate]);
+  }, [registerSuccess, loginSuccess, navigate, dispatch]);
 
   const onSubmitLogin = async (values) => {
-    await dispatch(loginFun(values));
+    const lowercasedValues = {
+      userNameLogin: values.userNameLogin.toLowerCase(),
+      passwordLogin: values.passwordLogin,
+    };
+    console.log(lowercasedValues);
+    await dispatch(loginFun(lowercasedValues));
   };
 
   const onSubmitRegister = async (values) => {
-    await dispatch(registerFun(values));
+    const lowercasedValues = {
+      name: values.name,
+      userName: values.userName.toLowerCase(),
+      password: values.password,
+    };
+    console.log(lowercasedValues);
+    await dispatch(registerFun(lowercasedValues));
   };
 
   return (
@@ -102,7 +111,9 @@ const Auth = () => {
                       <div className="center-wrap">
                         <div className="section">
                           <h4 className="title">Log In</h4>
-                          <div className="error">{loginErrMessage}</div>
+                          <div className="error">
+                            {loginError && loginErrMessage}
+                          </div>
                           <Formik
                             initialValues={{
                               userNameLogin: "",
@@ -112,49 +123,26 @@ const Auth = () => {
                             validationSchema={schemaLogin}
                           >
                             <Form>
-                              <div className="form-group">
-                                <div className="form-input">
-                                  <span className="form-icon">
-                                    <CiAt size={20} className="icon" />
-                                  </span>
-                                  <Field
-                                    type="text"
-                                    name="userNameLogin"
-                                    placeholder="Username"
-                                    className="form-control"
+                              <FormInput
+                                icon={<CiAt size={20} className="icon" />}
+                                type="text"
+                                name="userNameLogin"
+                                placeholder="Username"
+                              />
+
+                              <FormInput
+                                icon={
+                                  <RiLockPasswordLine
+                                    size={20}
+                                    className="icon"
                                   />
-                                </div>
-                                <ErrorMessage
-                                  name="userNameLogin"
-                                  component="span"
-                                  className="error-message"
-                                />
-                              </div>
+                                }
+                                type="password"
+                                name="passwordLogin"
+                                placeholder="Password"
+                              />
 
-                              <div className="form-group">
-                                <div className="form-input">
-                                  <span className="form-icon">
-                                    <RiLockPasswordLine
-                                      size={20}
-                                      className="icon"
-                                    />
-                                  </span>
-
-                                  <Field
-                                    type="password"
-                                    name="passwordLogin"
-                                    placeholder="Password"
-                                    className="form-control"
-                                  />
-                                </div>
-                                <ErrorMessage
-                                  name="passwordLogin"
-                                  component="span"
-                                  className="error-message"
-                                />
-                              </div>
-
-                              <button className="btn">
+                              <button type="submit" className="btn">
                                 {loginLoading ? (
                                   <AiOutlineLoading3Quarters
                                     size={20}
@@ -169,7 +157,7 @@ const Auth = () => {
                           </Formik>
 
                           <p className="prompt">
-                            Don’t have an account?
+                            Don’t have an account?{" "}
                             <span onClick={handleSignup} className="link">
                               Sign up
                             </span>
@@ -183,7 +171,9 @@ const Auth = () => {
                       <div className="center-wrap">
                         <div className="section">
                           <h4 className="title">Sign Up</h4>
-                          <div className="error">{registerErrMessage}</div>
+                          <div className="error">
+                            {registerError && registerErrMessage}
+                          </div>
                           <Formik
                             initialValues={{
                               name: "",
@@ -194,67 +184,33 @@ const Auth = () => {
                             validationSchema={schemaRegister}
                           >
                             <Form>
-                              <div className="form-group">
-                                <div className="form-input">
-                                  <span className="form-icon">
-                                    <CiUser size={20} className="icon" />
-                                  </span>
-                                  <Field
-                                    type="text"
-                                    name="name"
-                                    placeholder="Your Full Name"
-                                    className="form-control"
-                                  />
-                                </div>
-                                <ErrorMessage
-                                  name="name"
-                                  component="span"
-                                  className="error-message"
-                                />
-                              </div>
+                              <FormInput
+                                icon={<CiUser size={20} className="icon" />}
+                                type="text"
+                                name="name"
+                                placeholder="Your Full Name"
+                              />
 
-                              <div className="form-group">
-                                <div className="form-input">
-                                  <span className="form-icon">
-                                    <CiAt size={20} className="icon" />
-                                  </span>
-                                  <Field
-                                    type="text"
-                                    name="userName"
-                                    placeholder="Username"
-                                    className="form-control"
-                                  />
-                                </div>
-                                <ErrorMessage
-                                  name="userName"
-                                  component="span"
-                                  className="error-message"
-                                />
-                              </div>
+                              <FormInput
+                                icon={<CiAt size={20} className="icon" />}
+                                type="text"
+                                name="userName"
+                                placeholder="Username"
+                              />
 
-                              <div className="form-group">
-                                <div className="form-input">
-                                  <span className="form-icon">
-                                    <RiLockPasswordLine
-                                      size={20}
-                                      className="icon"
-                                    />
-                                  </span>
-                                  <Field
-                                    type="password"
-                                    name="password"
-                                    placeholder="Password"
-                                    className="form-control"
+                              <FormInput
+                                icon={
+                                  <RiLockPasswordLine
+                                    size={20}
+                                    className="icon"
                                   />
-                                </div>
-                                <ErrorMessage
-                                  name="password"
-                                  component="span"
-                                  className="error-message"
-                                />
-                              </div>
+                                }
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                              />
 
-                              <button className="btn">
+                              <button type="submit" className="btn">
                                 {registerLoading ? (
                                   <AiOutlineLoading3Quarters
                                     size={20}
@@ -269,7 +225,7 @@ const Auth = () => {
                           </Formik>
 
                           <p className="prompt">
-                            Already have an account?
+                            Already have an account?{" "}
                             <span onClick={handleLogin}>Login</span>
                           </p>
                         </div>

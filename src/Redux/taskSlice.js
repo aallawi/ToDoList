@@ -101,7 +101,27 @@ const taskSlice = createSlice({
       state.tasks = [];
     },
     resetTaskState: (state) => {
-      Object.assign(state, initialState);
+      state.theCreate = {
+        loading: false,
+        success: false,
+        error: false,
+        successMsg: "",
+        errorMsg: "",
+      };
+      state.theUpdate = {
+        loading: false,
+        success: false,
+        error: false,
+        successMsg: "",
+        errorMsg: "",
+      };
+      state.theDelete = {
+        loading: false,
+        success: false,
+        error: false,
+        successMsg: "",
+        errorMsg: "",
+      };
     },
   },
 

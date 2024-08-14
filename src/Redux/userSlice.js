@@ -73,7 +73,18 @@ const userSlice = createSlice({
       state.userData = null;
     },
     resetUserState: (state) => {
-      Object.assign(state, initialState);
+      state.thrRegister = {
+        loading: false,
+        success: false,
+        error: false,
+        errMessage: "",
+      };
+      state.theLogin = {
+        loading: false,
+        success: false,
+        error: false,
+        errMessage: "",
+      };
     },
   },
 

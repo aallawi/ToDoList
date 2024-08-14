@@ -52,13 +52,12 @@ const Modals = ({ show, setShow, task }) => {
         updateTask({ userId: userData.id, taskId: task?.id, taskData })
       );
     }
-
-    setShow(false);
   };
 
   useEffect(() => {
     if (createSuccess || updateSuccess) {
       dispatch(resetTaskState());
+      setShow(false);
       navigate("/");
     }
   }, [createSuccess, updateSuccess]);
@@ -132,8 +131,8 @@ const Modals = ({ show, setShow, task }) => {
                 </span>
                 <Field as="select" name="type" className="form-control">
                   <option value="" label="Select type" />
-                  <option value="personal" label="Personal" />
-                  <option value="work" label="Work" />
+                  <option value="Personal" label="Personal" />
+                  <option value="Work" label="Work" />
                 </Field>
               </div>
               <ErrorMessage

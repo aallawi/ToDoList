@@ -1,7 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap");
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: "Merienda", cursive;
 }
 
 a {
@@ -618,12 +621,12 @@ a {
   }
 }
 
-.title {
+.logo .title {
   font-size: 18px;
   margin: 0;
 }
 
-.description {
+.logo .description {
   font-size: 14px;
   margin-bottom: 0;
   margin-top: 5px;
@@ -715,7 +718,7 @@ a {
   transform: translate(2px, 2px);
 }
 
-/* ------------------------------------------------------------------- */
+/*----------------------  Footer -------------------------- */
 
 .footer {
   background-color: #2d344b;
@@ -732,7 +735,7 @@ a {
   padding-right: 5px;
 }
 
-/* ------------------------------------------------------------------- */
+/* ----------------------  Home -------------------------- */
 
 .home {
   min-height: calc(99vh - (65px + 44px));
@@ -810,32 +813,78 @@ a {
   font-size: 30px;
 }
 
-/* ------------------------------------------------ */
+/* ----------------------  task card -------------------------- */
 
 .task_card {
+  user-select: none;
   display: flex;
   flex-direction: row;
-  background-color: #2d344b;
+  gap: 30px;
+  backdrop-filter: blur(30px);
+  box-shadow: 0px 0px 10px rgba(227, 228, 237, 0.37);
+  border: 1.5px solid rgba(225, 225, 225, 0.18);
   padding: 20px;
   border-radius: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .task_content {
   flex: 1;
+  font-size: 18px;
+  color: #cccc;
+}
+
+.task_content .name {
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 15px;
+  color: #fdb44b;
+}
+.task_content .description {
+  margin-bottom: 20px;
+}
+
+.task_content .status-wrapper {
+  display: flex;
+  gap: 25px;
+}
+
+.task_content .status-wrapper .type,
+.task_content .status p {
+  margin: 0;
+}
+.task_content .status {
+  margin-bottom: 10px;
+}
+
+.task_content .status .complete,
+.task_content .status .pending {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+.task_content .complete {
+  color: #4caf50;
+}
+.task_content .pending {
+  color: #93a7d1;
+}
+.task_content .danger {
+  color: #e62222;
 }
 
 .task_buttons {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-between;
+  gap: 5px;
 }
 
 .button_action {
-  width: 170px;
-  height: 40px;
-  font-size: 18px;
+  width: 130px;
+  height: 35px;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -860,10 +909,10 @@ a {
 }
 
 .button_action.complete {
-  background-color: #a9c52f;
+  background-color: #906387;
 }
 .button_action.complete:hover {
-  background-color: #a9c52f;
+  background-color: #906387;
 }
 
 .button_action.archive {
@@ -887,9 +936,9 @@ a {
 .button_action .icon {
   position: absolute;
   border-left: 1px solid #fff;
-  transform: translateX(130px);
-  height: 40px;
-  width: 40px;
+  transform: translateX(90px);
+  height: 35px;
+  width: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -905,7 +954,7 @@ a {
 }
 
 .button_action:hover .icon {
-  width: 180px;
+  width: 130px;
   border-left: none;
   transform: translateX(0);
 }
@@ -919,7 +968,14 @@ a {
 }
 
 @media screen and (max-width: 700px) {
+  .task_card {
+    text-align: center;
+  }
+  .status-wrapper {
+    justify-content: center;
+  }
   .task_buttons {
+    justify-content: center;
     gap: 10px;
   }
   .task_card {

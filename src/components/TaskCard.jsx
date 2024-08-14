@@ -79,6 +79,25 @@ const TaskCard = ({ task }) => {
     }
   };
 
+  const calculateTimeRemaining = (date) => {
+    const currentTime = new Date();
+    const targetTime = new Date(date);
+
+    const timeDiff = targetTime.getTime() - currentTime.getTime();
+    const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+    const minutesDiff = Math.floor(
+      (timeDiff % (1000 * 3600 * 24)) / (1000 * 60)
+    );
+
+    if (daysDiff > 0) {
+      return `${daysDiff + 1} Days remaining`;
+    } else if (minutesDiff > 0) {
+      return `${minutesDiff} Minutes remaining`;
+    } else {
+      return "Time is over!";
+    }
+  };
+
   if (!task) {
     return <p>Task not found.</p>;
   }
@@ -86,13 +105,33 @@ const TaskCard = ({ task }) => {
   return (
     <div className="task_card">
       <div className="task_content">
-        <h2>{name}</h2>
-        <p>{description}</p>
-        <p>{type}</p>
-        <p>{date}</p>
-        <p>{complete ? "Complete" : "Pending"}</p>
-        <p>{archive ? "Archived" : "Not Archived"}</p>
+        <h2 className="name">{name}</h2>
+        <p className="description">{description}</p>
+        <div className="status-wrapper">
+          <span className="type">{type}</span>
+          <p className="status">
+            {complete ? (
+              <div className="complete">
+                <p>Complete</p>
+                <FcOk size={25} />
+              </div>
+            ) : (
+              <div className="pending">
+                <p>Pending</p>
+                <RiTimer2Line size={25} />
+              </div>
+            )}
+          </p>
+        </div>
+        <p
+          className={`${
+            calculateTimeRemaining(date) === "Time is over!" ? "danger" : "date"
+          }`}
+        >
+          {calculateTimeRemaining(date)}
+        </p>
       </div>
+
       <div className="task_buttons">
         <button className="button_action edit" onClick={() => setShow(true)}>
           <span className="text">Update</span>
@@ -112,9 +151,7 @@ const TaskCard = ({ task }) => {
           className="button_action complete"
           onClick={() => handleComplete(!complete)}
         >
-          <span className="text">
-            {complete ? "Set Pending" : "Set Complete"}
-          </span>
+          <span className="text">{complete ? "Pending" : "Complete"}</span>
           <span className="icon">
             {complete ? <RiTimer2Line size={25} /> : <FcOk size={25} />}
           </span>
