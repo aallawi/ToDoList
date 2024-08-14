@@ -9,7 +9,7 @@ const Routers = () => {
   return (
     <Routes>
       <Route
-        index
+        path="/tasks"
         element={
           <PrivateRoute>
             <Header />
@@ -18,7 +18,7 @@ const Routers = () => {
           </PrivateRoute>
         }
       />
-      <Route path="/auth" element={<Auth />} />
+      <Route path="/" element={<Auth />} />
     </Routes>
   );
 };

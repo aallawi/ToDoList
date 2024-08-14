@@ -50,7 +50,7 @@ const Auth = () => {
     if (registerSuccess || loginSuccess) {
       dispatch(resetUserState());
       dispatch(resetTaskState());
-      navigate("/");
+      navigate("/tasks");
     }
   }, [registerSuccess, loginSuccess, navigate, dispatch]);
 

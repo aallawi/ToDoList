@@ -59,7 +59,7 @@ const Modals = ({ show, setShow, task }) => {
     if (createSuccess || updateSuccess) {
       dispatch(resetTaskState());
       setShow(false);
-      navigate("/");
+      navigate("/tasks");
     }
   }, [createSuccess, updateSuccess]);
 

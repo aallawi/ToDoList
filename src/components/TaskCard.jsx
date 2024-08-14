@@ -35,7 +35,7 @@ const TaskCard = ({ task }) => {
   useEffect(() => {
     if (deleteSuccess || updateSuccess) {
       dispatch(resetTaskState());
-      navigate("/");
+      navigate("/tasks");
     }
   }, [deleteSuccess, updateSuccess]);
 

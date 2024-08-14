@@ -8,7 +8,7 @@ const PrivateRoute = ({ children }) => {
 
   useEffect(() => {
     if (!userData) {
-      navigate("/auth", { replace: true });
+      navigate("/", { replace: true });
     }
   }, [userData, navigate]);
 
