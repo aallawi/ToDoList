@@ -59,7 +59,6 @@ const Auth = () => {
       userNameLogin: values.userNameLogin.toLowerCase(),
       passwordLogin: values.passwordLogin,
     };
-    console.log(lowercasedValues);
     await dispatch(loginFun(lowercasedValues));
   };
 
@@ -69,7 +68,6 @@ const Auth = () => {
       userName: values.userName.toLowerCase(),
       password: values.password,
     };
-    console.log(lowercasedValues);
     await dispatch(registerFun(lowercasedValues));
   };
 

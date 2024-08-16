@@ -246,16 +246,3 @@ button.btn:hover {
 .prompt span:hover {
   color: #c40a00;
 }
-
-.spins {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
